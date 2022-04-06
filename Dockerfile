@@ -1,17 +1,16 @@
-FROM strapi/base
-#:14
-
-WORKDIR /app
-
-# Install dependencies, but not generate a yarn.lock file and fail if an update is needed (for more : https://classic.yarnpkg.com/en/docs/cli/install/#toc-yarn-install-frozen-lockfile).
-#RUN yarn install --frozen-lockfile
-RUN yarn add npx
-RUN npx browserslist@latest --update-db
-
+FROM node:16
+# Installing libvips-dev for sharp compatability
+RUN apt-get update && apt-get install libvips-dev
+ARG NODE_ENV=development
+ENV NODE_ENV=${NODE_ENV}
+WORKDIR /opt/
+COPY ./package.json ./
+COPY ./yarn.lock ./
+ENV PATH /opt/node_modules/.bin:$PATH
+RUN yarn config set network-timeout 600000 -g
+RUN yarn install
+WORKDIR /opt/app
+COPY ./ .
 RUN yarn build
-
 EXPOSE 1337
-
-# We need to define the command to launch when we are going to run the image. We can use the keyword 'CMD' to do that.
-# The following command will execute "yarn start".
-CMD ["yarn", "start"]
+CMD ["yarn", "develop"]
