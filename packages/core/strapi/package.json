@@ -85,7 +85,7 @@
     "@strapi/generate-new": "4.1.7",
     "@strapi/generators": "4.1.7",
     "@strapi/logger": "4.1.7",
-    "@strapi/plugin-content-manager": "4.1.7",
+    "@strapi/plugin-content-manager": "4.12.1",
     "@strapi/plugin-content-type-builder": "4.1.7",
     "@strapi/plugin-email": "4.1.7",
     "@strapi/plugin-upload": "4.1.7",
